@@ -1,3 +1,6 @@
+Add a 3D tilt hover effect to elements with the class `.tilt`. 
+The tilt should follow the mouse position, rotating up to 12 degrees, and return to normal on mouseleave. 
+Include a soft shadow that responds to the tilt.
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +12,123 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* Loading Overlay */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            background-image: url("https://i.postimg.cc/JnZcDnC7/Screenshot-2025-12-10-230515.png");
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 0.6s ease-out;
+            pointer-events: auto;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #loading-overlay {
+                transition: opacity 0.1s ease-out;
+            }
+        }
+
+        #loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-content {
+            text-align: center;
+            color: #fff;
+            opacity: 1;
+            transition: opacity 0.6s ease-out;
+        }
+
+        .loading-text {
+            font-size: 8vw;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #e50914;
+            text-shadow:
+                0 0 10px #e50914,
+                0 0 20px #e50914,
+                0 0 30px #e50914,
+                0 0 40px #e50914;
+            animation: loading-pulse 2s infinite ease-in-out;
+            margin-bottom: 2rem;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .loading-text {
+                animation: none;
+            }
+        }
+
+        @keyframes loading-pulse {
+            0%, 100% {
+                text-shadow:
+                    0 0 10px #e50914,
+                    0 0 20px #e50914,
+                    0 0 30px #e50914,
+                    0 0 40px #e50914;
+            }
+            50% {
+                text-shadow:
+                    0 0 15px #e50914,
+                    0 0 30px #e50914,
+                    0 0 45px #e50914,
+                    0 0 60px #e50914;
+            }
+        }
+
+        .loading-spinner {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .loading-bar {
+            width: 4px;
+            height: 20px;
+            background: #e50914;
+            animation: loading-bounce 1.4s ease-in-out infinite both;
+        }
+
+        .loading-bar:nth-child(1) { animation-delay: -0.32s; }
+        .loading-bar:nth-child(2) { animation-delay: -0.16s; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .loading-bar {
+                animation: none;
+            }
+        }
+
+        @keyframes loading-bounce {
+            0%, 80%, 100% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .loading-text {
+                font-size: 12vw;
+                letter-spacing: 0.1em;
+            }
+        }
         * {
             margin: 0;
             padding: 0;
@@ -201,7 +321,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url("images/anime-photographer.png") no-repeat center center fixed;
+            background: url("https://i.postimg.cc/260kkjbV/Wydad-AC-Wallpaper-(winners-s-flag-the-family-alʿaylt-).jpg") no-repeat center center fixed;
             background-size: cover;
             filter: blur(2px);
             z-index: -2;
@@ -328,6 +448,17 @@
             bottom: 0;
             background: rgba(0, 0, 0, 0.85);
             z-index: 1;
+        }
+
+        #hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 0;
         }
 
         .hero-content {
@@ -797,6 +928,23 @@
         /* Portfolio */
         #portfolio {
             background: #050509;
+            position: relative;
+        }
+
+        #portfolio::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 0;
+        }
+
+        #portfolio .section-title, #portfolio .section-subtitle, #portfolio .filters, #portfolio .portfolio-grid {
+            position: relative;
+            z-index: 1;
         }
 
         .filters {
@@ -833,6 +981,10 @@
             overflow: hidden;
             border-radius: 10px;
             cursor: pointer;
+        }
+
+        .portfolio-item.tilt {
+            /* Additional styles if needed */
         }
 
         .portfolio-item img {
@@ -903,8 +1055,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url("images/manar.png") no-repeat center center;
-            background-size: cover;
+            background: url("https://i.postimg.cc/V6rMMhj7/Screenshot-2025-10-30-212240.png") no-repeat center center;
+            background-size: 100% 100%;
             filter: blur(5px);
             z-index: 0;
         }
@@ -1183,16 +1335,164 @@
         .reveal {
             opacity: 0;
             transform: translateY(50px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
         .reveal.visible {
             opacity: 1;
-            transform: translateY(5);
+            transform: translateY(0);
+        }
+
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.06);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Neon Glow Text Effect */
+        .neon {
+            color: #00ffff;
+            text-shadow:
+                0 0 5px #00ffff,
+                0 0 10px #00ffff,
+                0 0 15px #00ffff,
+                0 0 20px #00ffff,
+                0 0 35px #00ffff,
+                0 0 40px #00ffff;
+            animation: neon-flicker 2s infinite alternate;
+        }
+
+        @keyframes neon-flicker {
+            0%, 100% {
+                text-shadow:
+                    0 0 5px #00ffff,
+                    0 0 10px #00ffff,
+                    0 0 15px #00ffff,
+                    0 0 20px #00ffff,
+                    0 0 35px #00ffff,
+                    0 0 40px #00ffff;
+            }
+            50% {
+                text-shadow:
+                    0 0 2px #00ffff,
+                    0 0 5px #00ffff,
+                    0 0 7px #00ffff,
+                    0 0 10px #00ffff,
+                    0 0 17px #00ffff,
+                    0 0 20px #00ffff;
+            }
+        }
+
+        /* Wipe Reveal Animation */
+        .wipe {
+            clip-path: inset(0 100% 0 0);
+            animation: wipe-reveal 0.7s ease-out forwards;
+        }
+
+        @keyframes wipe-reveal {
+            to {
+                clip-path: inset(0 0 0 0);
+            }
+        }
+
+        /* Staggered Gallery Animation */
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .portfolio-item img {
+            animation: fadeInScale 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .portfolio-item:nth-child(1) img { animation-delay: 0s; }
+        .portfolio-item:nth-child(2) img { animation-delay: 0.1s; }
+        .portfolio-item:nth-child(3) img { animation-delay: 0.2s; }
+        .portfolio-item:nth-child(4) img { animation-delay: 0.3s; }
+
+        /* Glitch Effect Animation */
+        .glitch {
+            position: relative;
+            color: #fff;
+            animation: glitch-skew 0.6s infinite linear alternate-reverse;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            color: #ff0000;
+            animation: glitch-anim-1 0.6s infinite linear alternate-reverse;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+        }
+
+        .glitch::after {
+            color: #00ffff;
+            animation: glitch-anim-2 0.6s infinite linear alternate-reverse;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+        }
+
+        @keyframes glitch-skew {
+            0%, 100% { transform: skew(0deg); }
+            20% { transform: skew(-3deg); }
+            40% { transform: skew(3deg); }
+            60% { transform: skew(-1deg); }
+            80% { transform: skew(1deg); }
+        }
+
+        @keyframes glitch-anim-1 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(2px, -2px); }
+            40% { transform: translate(2px, 2px); }
+            60% { transform: translate(-2px, -2px); }
+            80% { transform: translate(-2px, 2px); }
+        }
+
+        /* 3D Tilt Effect */
+        .tilt {
+            transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+            transform-style: preserve-3d;
         }
     </style>
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" aria-hidden="false">
+        <div class="loading-content">
+            <div class="loading-text">WYDAD</div>
+            <div class="loading-spinner">
+                <div class="loading-bar"></div>
+                <div class="loading-bar"></div>
+                <div class="loading-bar"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Intro Loading Screen -->
     <div id="intro-overlay">
         <div class="intro-text">
@@ -1216,7 +1516,7 @@
 
     <header>
         <div class="logo">
-            <img src="images/wac.png" alt="BMN Logo">
+            <img src="https://i.postimg.cc/Lsc9hQvG/Screenshot-2025-10-31-195313.png" alt="BMN Logo">
         </div>
         <nav>
             <ul id="nav-links">
@@ -1250,6 +1550,7 @@
                     <div class="hero-name">MARWANE AIT BMN</div>
                     <div class="hero-gjw9">G J W 9</div>
                     <div class="hero-role">Photographer & Visual Designer</div>
+                    <div id="typewriter" class="typewriter"></div>
                     <p class="hero-desc">Street, stadium and portrait photography.</p>
                     <div class="tags">
                         <span class="tag">Portraits</span>
@@ -1258,7 +1559,7 @@
                         <span class="tag">Creative Edits</span>
                     </div>
                     <div class="hero-buttons">
-                        <button class="btn-primary" onclick="scrollToSection('portfolio')">View Portfolio</button>
+                        <button class="btn-primary" onclick="scrollToSection('DIMA WYDAD-ATHLETIC-CLUB-WAC')">View Portfolio</button>
                         <button class="btn-secondary" onclick="scrollToSection('contact')">Contact Me</button>
                     </div>
                 </div>
@@ -1274,7 +1575,7 @@
             <p class="section-subtitle">From the streets and stands to the lens.</p>
             <div class="content">
                 <div class="left">
-                    <img src="images/wins.png" alt="Wins Illustration" style="width: 100%; height: auto; object-fit: cover; border-radius: 10px;">
+                    <img src="https://i.postimg.cc/HxCvPbB3/Anime-style-illustra.png" alt="Wins Illustration" style="width: 100%; height: auto; object-fit: cover; border-radius: 10px;">
                 </div>
                 <div class="right">
                     <p>I'm Marwane Ait Bmn, a passionate photographer and visual designer based in Morocco. I am currently studying for my baccalaureate and I am a proud Wydadi.</p>
@@ -1330,20 +1631,20 @@
                 <button class="filter-btn" data-filter="creative">Creative</button>
             </div>
             <div class="portfolio-grid">
-                <div class="portfolio-item" data-category="portraits">
-                    <img src="images/portfolio-portrait-01.jpg" alt="Portrait">
+                <div class="portfolio-item tilt" data-category="portraits">
+                    <img src="https://i.postimg.cc/kXFX5dVx/Screenshot-2025-12-10-224622.png" alt="Portrait">
                     <div class="portfolio-label">Portrait – Red Light</div>
                 </div>
-                <div class="portfolio-item" data-category="street">
-                    <img src="images/portfolio-street-01.jpg" alt="Street">
+                <div class="portfolio-item tilt" data-category="street">
+                    <img src="https://i.postimg.cc/59sxCm45/585996242-122194072202352104-2924492898991629934-n.jpg" alt="Street">
                     <div class="portfolio-label">Street – Night Shot</div>
                 </div>
-                <div class="portfolio-item" data-category="stadium">
-                    <img src="images/portfolio-stadium-01.jpg" alt="Stadium">
+                <div class="portfolio-item tilt" data-category="stadium">
+                    <img src="https://i.postimg.cc/L5tLx0xV/589630432-122194737686352104-2301847239691715145-n.jpg" alt="Stadium">
                     <div class="portfolio-label">Stadium – Flares</div>
                 </div>
-                <div class="portfolio-item" data-category="creative">
-                    <img src="images/portfolio-creative-01.jpg" alt="Creative">
+                <div class="portfolio-item tilt" data-category="creative">
+                    <img src="https://i.postimg.cc/d02CsCj1/580104463-122193335024352104-7697882566988223197-n.jpg" alt="Creative">
                     <div class="portfolio-label">Creative – Edit</div>
                 </div>
             </div>
@@ -1363,14 +1664,14 @@
                     <p class="note">All visuals are original photos and graphics. No official club logos are used.</p>
                 </div>
                 <div class="right">
-                    <img src="pngwing.com.png" alt="Wydad ">
+                    <img src="https://i.postimg.cc/kXBphM7T/Screenshot-2025-11-30-124805.png" alt="Wydad ">
                 </div>
             </div>
             <img src="images/manar.png" alt="Manar Image" style="position: absolute; bottom: 2rem; right: 2rem; width: 150px; height: auto; border-radius: 10px; box-shadow: 0 0 20px rgba(229, 9, 20, 0.5); z-index: 3;">
         </section>
 
         <section id="services" class="fade-in">
-            <img src="images/wac.png" alt="WAC Image" style="position: absolute; top: -100px; right: 2rem; width: 200px; height: auto; border-radius: 10px; box-shadow: 0 0 20px rgba(229, 9, 20, 0.5); z-index: 1;">
+
             <h2 class="section-title">Services</h2>
             <p class="section-subtitle">What I can do for you.</p>
             <div class="services-grid">
@@ -1398,7 +1699,7 @@
         </section>
 
         <section id="contact" class="fade-in">
-            <img src="images/wac.png" alt="WAC Image" style="position: absolute; top: -100px; right: 2rem; width: 200px; height: auto; border-radius: 10px; box-shadow: 0 0 20px rgba(229, 9, 20, 0.5); z-index: 1;">
+            
             <h2 class="section-title">Contact</h2>
             <p class="section-subtitle">Let's work together or talk about your idea.</p>
             <div class="contact-content">
@@ -1434,125 +1735,119 @@
     </footer>
 
     <script>
-        // Intro Animation Sequence
-        function startIntroAnimation() {
-            const overlay = document.getElementById('intro-overlay');
-            const swordsman = document.querySelector('.swordsman');
-            const slash = document.querySelector('.slash');
-            const flash = document.querySelector('.flash');
+        // Loading Overlays
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loading-overlay').classList.add('hidden');
+                setTimeout(function() {
+                    document.getElementById('intro-overlay').classList.add('hidden');
+                }, 1000);
+            }, 2000);
+        });
 
-            // Step 1: Show text for 2.5 seconds
-            setTimeout(() => {
-                // Step 2: Show swordsman
-                swordsman.classList.add('visible');
+        // Typewriter Effect
+        const typewriterElement = document.getElementById('typewriter');
+        const text = "Passionate about capturing moments that tell stories.";
+        let index = 0;
 
-                // Step 3: After 1.5 seconds, perform slash
-                setTimeout(() => {
-                    slash.classList.add('active');
-
-                    // Step 4: Flash at impact (middle of slash animation ~0.4s)
-                    setTimeout(() => {
-                        flash.classList.add('active');
-                    }, 400);
-
-                    // Step 5: Hide overlay after slash completes (~0.8s)
-                    setTimeout(() => {
-                        overlay.classList.add('hidden');
-
-                        // Step 6: Remove overlay from DOM after fade out
-                        setTimeout(() => {
-                            overlay.remove();
-                        }, 500);
-                    }, 800);
-                }, 1500);
-            }, 2500);
+        function typeWriter() {
+            if (index < text.length) {
+                typewriterElement.innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeWriter, 100);
+            }
         }
 
-        // Check if intro has been shown before
-        // For testing: Force show intro by commenting out the localStorage check
-        // if (!localStorage.getItem('introShown')) {
-            // Show intro on first load
-            startIntroAnimation();
-            // localStorage.setItem('introShown', 'true');
-        // } else {
-        //     // Skip intro and remove overlay immediately
-        //     const overlay = document.getElementById('intro-overlay');
-        //     overlay.remove();
-        // }
+        setTimeout(typeWriter, 3000);
 
-        // Burger menu toggle
+        // Scroll to Section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Burger Menu
         const burger = document.getElementById('burger');
         const navLinks = document.getElementById('nav-links');
 
-        burger.addEventListener('click', () => {
+        burger.addEventListener('click', function() {
             navLinks.classList.toggle('show');
         });
 
-        // Smooth scroll function
-        function scrollToSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            section.scrollIntoView({ behavior: 'smooth' });
-        }
+        // Portfolio Filters
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
 
-        // Intersection Observer for fade-in animations
-        const observer = new IntersectionObserver((entries) => {
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Fade-in on Scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 }
             });
-        }, { threshold: 0.1 });
+        }, observerOptions);
 
         document.querySelectorAll('.fade-in, .reveal').forEach(el => {
             observer.observe(el);
         });
 
-        // Form validation
+        // Contact Form
         const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
-
-            if (name && email && message) {
-                alert('Message sent! Thank you for reaching out.');
-                contactForm.reset();
-            } else {
-                alert('Please fill all fields.');
-            }
+            alert('Thank you for your message! I will get back to you soon.');
+            contactForm.reset();
         });
 
-        // Portfolio filter (visual only, no actual filtering)
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+        // 3D Tilt Effect
+        const tiltElements = document.querySelectorAll('.tilt');
+
+        tiltElements.forEach(element => {
+            element.addEventListener('mousemove', function(e) {
+                const rect = element.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const mouseX = e.clientX - centerX;
+                const mouseY = e.clientY - centerY;
+
+                const rotateX = (mouseY / (rect.height / 2)) * 12; // Max 12 degrees
+                const rotateY = -(mouseX / (rect.width / 2)) * 12; // Max 12 degrees
+
+                element.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+                // Dynamic shadow based on tilt
+                const shadowX = (mouseX / (rect.width / 2)) * 20;
+                const shadowY = (mouseY / (rect.height / 2)) * 20;
+                element.style.boxShadow = `${shadowX}px ${shadowY}px 30px rgba(0, 0, 0, 0.5)`;
+            });
+
+            element.addEventListener('mouseleave', function() {
+                element.style.transform = 'rotateX(0deg) rotateY(0deg)';
+                element.style.boxShadow = '0 0 0 rgba(0, 0, 0, 0)';
             });
         });
-
-        // Parallax background effect
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
-            document.body.style.backgroundPosition = `center ${rate}px`;
-        });
-
-        // Stadium particles effect
-        function createParticles() {
-            const hero = document.getElementById('hero');
-            for (let i = 0; i < 15; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'stadium-particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 5 + 's';
-                particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                hero.appendChild(particle);
-            }
-        }
-
-        createParticles();
     </script>
-</body>
-</html>
+     
