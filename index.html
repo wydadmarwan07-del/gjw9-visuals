@@ -1,4 +1,4 @@
-
+23
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,122 +50,31 @@
             pointer-events: none;
         }
 
-        /* Loading Overlay */
-        #loading-overlay {
+        /* Intro Video Overlay */
+        #intro-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(0, 0, 0, 0.9);
-            background-image: url("https://i.postimg.cc/JnZcDnC7/Screenshot-2025-12-10-230515.png");
-            background-size: cover;
-            background-position: center;
-            background-blend-mode: overlay;
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            z-index: 9999;
             opacity: 1;
             transition: opacity 0.6s ease-out;
-            pointer-events: auto;
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            #loading-overlay {
-                transition: opacity 0.1s ease-out;
-            }
-        }
-
-        #loading-overlay.hidden {
+        #intro-overlay.hidden {
             opacity: 0;
             pointer-events: none;
         }
 
-        .loading-content {
-            text-align: center;
-            color: #fff;
-            opacity: 1;
-            transition: opacity 0.6s ease-out;
-        }
-
-        .loading-text {
-            font-size: 8vw;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: #e50914;
-            text-shadow:
-                0 0 10px #e50914,
-                0 0 20px #e50914,
-                0 0 30px #e50914,
-                0 0 40px #e50914;
-            animation: loading-pulse 2s infinite ease-in-out;
-            margin-bottom: 2rem;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .loading-text {
-                animation: none;
-            }
-        }
-
-        @keyframes loading-pulse {
-            0%, 100% {
-                text-shadow:
-                    0 0 10px #000000,
-                    0 0 20px #e50914,
-                    0 0 30px #000000,
-                    0 0 40px #e50914;
-            }
-            50% {
-                text-shadow:
-                    0 0 15px #000000,
-                    0 0 30px #e50914,
-                    0 0 45px #0c0c0c,
-                    0 0 60px #e50914;
-            }
-        }
-
-        .loading-spinner {
-            display: flex;
-            gap: 0.5rem;
-            justify-content: center;
-        }
-
-        .loading-bar {
-            width: 4px;
-            height: 20px;
-            background: #e50914;
-            animation: loading-bounce 1.4s ease-in-out infinite both;
-        }
-
-        .loading-bar:nth-child(1) { animation-delay: -0.32s; }
-        .loading-bar:nth-child(2) { animation-delay: -0.16s; }
-
-        @media (prefers-reduced-motion: reduce) {
-            .loading-bar {
-                animation: none;
-            }
-        }
-
-        @keyframes loading-bounce {
-            0%, 80%, 100% {
-                transform: scale(0.8);
-                opacity: 0.5;
-            }
-            40% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .loading-text {
-                font-size: 12vw;
-                letter-spacing: 0.1em;
-            }
+        .intro-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
         }
         * {
             margin: 0;
@@ -196,7 +105,8 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #000;
+            background: url("https://i.postimg.cc/RZ8SZkSf/585996242-122194072202352104-2924492898991629934-n.jpg") no-repeat center center;
+            background-size: cover;
             z-index: 9999;
             display: flex;
             flex-direction: column;
@@ -204,6 +114,17 @@
             align-items: center;
             opacity: 1;
             transition: opacity 0.5s ease-out;
+        }
+
+        #intro-overlay::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
         }
 
         .intro-video {
@@ -290,6 +211,40 @@
                 0 0 20px #e50914,
                 0 0 30px #e50914;
             animation: neon-pulse 2s infinite alternate;
+        }
+
+        .loading-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 2rem;
+        }
+
+        .loading-dots span {
+            width: 8px;
+            height: 8px;
+            background: #d4af37;
+            border-radius: 50%;
+            animation: loading-pulse 1.5s infinite ease-in-out;
+        }
+
+        .loading-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loading-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes loading-pulse {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
         }
 
         @keyframes neon-pulse {
@@ -600,7 +555,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.85) url("https://i.postimg.cc/bvyghZGh/la-famille-wac.jpg") no-repeat center center / cover;
+            background: rgba(0, 0, 0, 0.85) url("https://i.postimg.cc/ZR0bjwDt/la-famille-wac-(1).png") no-repeat center center / cover;
             z-index: 1;
             filter: blur(0px);
             animation: hero-blur-reveal 1s ease-out forwards;
@@ -662,21 +617,25 @@
         }
 
         .hero-name {
-            font-size: 3rem;
+            font-size: 4rem;
             font-weight: bold;
-            background: linear-gradient(45deg, #e50914, #d4af37, #e50914);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradient-shift 3s ease-in-out infinite, hero-slide-up 0.8s ease-out 0.7s forwards;
-            text-shadow:
-                0 0 10px #e50914,
-                0 0 20px #d4af37,
-                0 0 30px #e50914,
-                0 0 40px #e50914;
+            color: #f5f5f5;
+            animation: hero-slide-up 0.8s ease-out 0.7s forwards;
             margin-bottom: 1rem;
             opacity: 0;
             transform: translateY(30px);
+            position: relative;
+        }
+
+        .hero-name::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #e50914, transparent);
         }
 
         .hero-welcome {
@@ -1032,6 +991,20 @@
             padding: 5rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
+        }
+
+        @media (min-width: 1400px) {
+            section {
+                max-width: 1600px;
+                padding: 5rem 4rem;
+            }
+        }
+
+        @media (min-width: 1800px) {
+            section {
+                max-width: 2000px;
+                padding: 5rem 6rem;
+            }
         }
 
         .section-title {
@@ -1421,6 +1394,195 @@
             color: #b0b0b0;
         }
 
+        /* Story Section */
+        #story {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .story-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(3px);
+            z-index: -2;
+        }
+
+        #story::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        .story-content {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .story-left {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .story-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            filter: grayscale(100%);
+            transition: filter 1.5s ease;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .story-image:hover {
+            filter: grayscale(0%);
+        }
+
+        .story-right {
+            flex: 1;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: story-reveal 1.2s ease-out 0.5s forwards;
+        }
+
+        @keyframes story-reveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .story-text {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: #f5f5f5;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .story-signature {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 2.5rem;
+            color: #e50914;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: signature-reveal 1.5s ease-out 1s forwards;
+        }
+
+        @keyframes signature-reveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* VENT’ANNI */
+        #ventanni {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #ventanni video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(3px);
+            z-index: -1;
+        }
+
+        #ventanni::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 0;
+        }
+
+        .ventanni-logo {
+            width: 200px;
+            height: auto;
+            margin-bottom: 2rem;
+            z-index: 1;
+            position: relative;
+        }
+
+        .ventanni-title {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #f5f5f5;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 0.3), 0 0 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 2rem;
+            z-index: 1;
+            position: relative;
+        }
+
+        .ventanni-quote {
+            font-size: 1.5rem;
+            color: #f5f5f5;
+            text-align: center;
+            max-width: 600px;
+            z-index: 1;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .ventanni-title {
+                font-size: 3rem;
+            }
+            .ventanni-quote {
+                font-size: 1.2rem;
+                max-width: 80%;
+            }
+            .ventanni-logo {
+                width: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .ventanni-title {
+                font-size: 2.5rem;
+            }
+            .ventanni-quote {
+                font-size: 1rem;
+            }
+            .ventanni-logo {
+                width: 120px;
+            }
+        }
+
         /* Contact */
         #contact {
             background: linear-gradient(135deg, #050509 0%, rgba(229, 9, 20, 0.1) 100%);
@@ -1713,6 +1875,24 @@
             .gjw9-visuals {
                 font-size: 2.5vw;
             }
+
+            /* Story Section Mobile */
+            .story-content {
+                padding: 0 0.5rem;
+            }
+
+            .story-image {
+                max-width: 250px;
+            }
+
+            .story-text {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+
+            .story-signature {
+                font-size: 1.8rem;
+            }
         }
 
         /* Animations */
@@ -1868,6 +2048,22 @@
             80% { transform: translate(-2px, 2px); }
         }
 
+        /* About Image Animation */
+        .about-image {
+            animation: about-zoom 1.5s ease-out;
+        }
+
+        @keyframes about-zoom {
+            0% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
         /* 3D Tilt Effect */
         .tilt {
             transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
@@ -1893,22 +2089,14 @@
     <!-- Intro Loading Screen -->
     <div id="intro-overlay">
         <div class="intro-text">
-            <div class="dima-wydad">MARWANE WINS</div>
-            <div class="gjw9-">GJW9 </div>
+            <div class="dima-wydad">MARWANE WELCOMES U</div>
+            <div class="gjw9-visuals">GJW9</div>
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-        <div class="swordsman">
-            <svg viewBox=" 150 200" xmlns="http://www.w3.org/2000/svg">
-                <!-- Swordsman silhouette -->
-                <path d="M75 20 L85 30 L80 50 L90 70 L85 90 L95 110 L90 130 L100 150 L95 170 L105 190 L75 195 L45 190 L55 170 L50 150 L60 130 L55 110 L65 90 L60 70 L70 50 L65 30 Z" fill="#333" stroke="#00ff2a" stroke-width="5"/>
-                <!-- Katana -->
-                <rect x="70" y="40" width="10" height="120" fill="#666" stroke="#00ff2a" stroke-width="1"/>
-                <rect x="72" y="35" width="6" height="10" fill="#999"/>
-                <!-- Glow effect -->
-                <path d="M75 20 L85 30 L80 50 L90 70 L85 90 L95 110 L90 130 L100 150 L95 170 L105 190 L75 195 L45 190 L55 170 L50 150 L60 130 L55 110 L65 90 L60 70 L70 50 L65 30 Z" fill="none" stroke="#00ff2a" stroke-width="5" opacity="5"/>
-            </svg>
-        </div>
-        <div class="slash"></div>
-        <div class="flash"></div>
     </div>
 
     <header>
@@ -1969,7 +2157,7 @@
             <p class="section-subtitle">From the streets and stands to the lens.</p>
             <div class="content">
                 <div class="left">
-                    <img src="https://i.postimg.cc/HxCvPbB3/Anime-style-illustra.png" alt="Wins Illustration" style="width: 100%; height: auto; object-fit: cover; border-radius: 10px;">
+                    <img src="https://i.postimg.cc/HxCvPbB3/Anime-style-illustra.png" alt="Wins Illustration" class="about-image" style="width: 100%; height: auto; object-fit: cover; border-radius: 10px;">
                 </div>
                 <div class="right">
                     <p>I'm Marwane Ait Bmn, a passionate photographer and visual designer based in Morocco. I am currently studying for my baccalaureate and I am a proud Wydadi.</p>
@@ -1992,24 +2180,24 @@
             </div>
         </section>
 
-        <section id="skills" class="fade-in">
-            <h2 class="section-title">TURBA</h2>
-            <p class="section-subtitle">Tools and skills I use to build strong visuals.</p>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <i class="fas fa-camera"></i>
-                    <h3>Photography</h3>
-                    <p>Portraits, Street, Events, Stadium Atmosphere</p>
+        <section id="story" class="fade-in">
+            <video autoplay loop muted playsinline class="story-video">
+                <source src="https://s183.convertio.me/p/dqPsyNw4F1oNSAbqblHKNg/8fea54bbbf07c66b25f0e45c97ef25cb/motion2Fast_Animate_the_image_subtly_The_young_boy_remains_sti_0.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="story-content">
+                <div class="story-left">
+                    <img src="https://i.postimg.cc/4Nj9c9yh/Whats-App-Image-2025-12-12-at-21-12-53-36fe623b-(1).png" alt="Personal Story Image" class="story-image">
                 </div>
-                <div class="skill-card">
-                    <i class="fas fa-paint-brush"></i>
-                    <h3>Editing</h3>
-                    <p>Adobe Lightroom, Adobe Photoshop, Color Grading</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-magic"></i>
-                    <h3>Creative</h3>
-                    <p>Composition, Storytelling, Social Media Content</p>
+                <div class="story-right">
+                    <p class="story-text">
+                        I was once a young kid, dreaming of better days.<br>
+                        I grew up little by little, but the dream never changed.<br>
+                        Wydad stayed in my heart, teaching me how to fight, to be patient, and to believe in myself.<br>
+                        Winners are not just a group; they are a spirit that grows with you.<br>
+                        A dream that started small will grow with us until we reach glory.
+                    </p>
+                    <div class="story-signature">Lokman Ait Bamoumen</div>
                 </div>
             </div>
         </section>
@@ -2083,6 +2271,16 @@
                     <p>Reels, posts and edited images ready for Instagram, TikTok and more.</p>
                 </div>
             </div>
+        </section>
+
+        <section id="ventanni" class="fade-in">
+            <video autoplay loop muted playsinline>
+                <source src="https://s188.convertio.me/p/9bgs4bFUBt17QusMskh70A/8fea54bbbf07c66b25f0e45c97ef25cb/snaptik_7338174907550829830_hd.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <img src="https://i.postimg.cc/L608gKyk/la-famille-wac.png" alt="VENT’ANNI Logo" class="ventanni-logo">
+            <h2 class="ventanni-title">VENT’ANNI</h2>
+            <p class="ventanni-quote">Wydad is not just a team to me. It’s a love that will stay with me forever.</p>
         </section>
 
         <section id="contact" class="fade-in">
