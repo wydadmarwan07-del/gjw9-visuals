@@ -17,6 +17,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Scheherazade:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kufi:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -1776,6 +1778,107 @@
             transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
             transform-style: preserve-3d;
         }
+
+        /* Arabic Section */
+        #arabic-section {
+            width: 100%;
+            height: auto;
+            padding: 2rem 0;
+            background: url("") no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .arabic-container {
+            position: relative;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .arabic-text {
+            font-family: 'Scheherazade', serif;
+            font-size: 12vw;
+            font-weight: 400;
+            position: relative;
+            z-index: 2;
+            text-shadow:
+                2px 2px 0px rgba(0, 0, 0, 0.1),
+                4px 4px 0px rgba(0, 0, 0, 0.05),
+                0px 0px 10px rgba(0, 0, 0, 0.2),
+                0 0 15px rgba(229, 9, 20, 0.3),
+                0 0 30px rgba(229, 9, 20, 0.2);
+            animation: signature-reveal 1.5s ease-out forwards, arabic-glow 3s ease-in-out infinite alternate;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .arabic-text::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #e50914, transparent);
+            animation: line-draw 1.5s ease-out 1.5s forwards;
+        }
+
+        @keyframes arabic-glow {
+            0% {
+                text-shadow:
+                    2px 2px 0px rgba(0, 0, 0, 0.1),
+                    4px 4px 0px rgba(0, 0, 0, 0.05),
+                    0px 0px 10px rgba(0, 0, 0, 0.2),
+                    0 0 15px rgba(229, 9, 20, 0.3),
+                    0 0 30px rgba(229, 9, 20, 0.2);
+            }
+            100% {
+                text-shadow:
+                    2px 2px 0px rgba(0, 0, 0, 0.1),
+                    4px 4px 0px rgba(0, 0, 0, 0.05),
+                    0px 0px 10px rgba(0, 0, 0, 0.2),
+                    0 0 20px rgba(229, 9, 20, 0.4),
+                    0 0 40px rgba(229, 9, 20, 0.3);
+            }
+        }
+
+        @keyframes line-draw {
+            to {
+                width: 80%;
+            }
+        }
+
+        @keyframes signature-reveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .arabic-text .red {
+            color: #e50914;
+        }
+
+        .arabic-text .white {
+            color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .arabic-text {
+                font-size: 12vw;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .arabic-text {
+                font-size: 15vw;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1820,7 +1923,7 @@
     <main>
         <section id="hero">
             <video class="hero-video" autoplay muted playsinline>
-                <source src="https://export-download.canva.com/U6RjQ/DAG7bVU6RjQ/2/0-7402153541636108081.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUH5AO7UJ26%2F20251213%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251213T183102Z&X-Amz-Expires=18998&X-Amz-Signature=6c185ae40dcdcf293d941ca535be83fbcfac162e75444bfb8461e0f6adb28b81&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%2A%3DUTF-8%27%27Design%2520sans%2520titre.mp4&response-expires=Sat%2C%2013%20Dec%202025%2023%3A47%3A40%20GMT" type="video/mp4">
+                <source src="https://export-download.canva.com/-YrRc/DAG7cU-YrRc/2/0-3504288082507249766.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUH5AO7UJ26%2F20251214%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251214T012316Z&X-Amz-Expires=5901&X-Amz-Signature=7907957a46b182bde5ff7b549d8ec5d26fad65496e34cba5d092d1c05a0c7f65&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%2A%3DUTF-8%27%27Design%2520sans%2520titre.mp4&response-expires=Sun%2C%2014%20Dec%202025%2003%3A01%3A37%20GMT" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             <div class="hero-content">
@@ -1960,7 +2063,7 @@
 
         <section id="ventanni" class="fade-in">
             <video autoplay loop muted playsinline>
-                <source src="https://export-download.canva.com/soFVs/DAG7bssoFVs/2/0-3105719503397541063.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUH5AO7UJ26%2F20251213%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251213T201957Z&X-Amz-Expires=11968&X-Amz-Signature=b4bf381d2aae6741752d6740526a8c37b46a9db5f4fc01826a5322eced35b198&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%2A%3DUTF-8%27%27Design%2520sans%2520titre.mp4&response-expires=Sat%2C%2013%20Dec%202025%2023%3A39%3A25%20GMT" type="video/mp4">
+                <source src="https://export-download.canva.com/8ROsA/DAG7cS8ROsA/2/0-2559658059989424599.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUH5AO7UJ26%2F20251213%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251213T225129Z&X-Amz-Expires=13831&X-Amz-Signature=9146e847cce517531e660bb1f19918f953c0d60e38335bbc159a90d9a4bc35e8&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%2A%3DUTF-8%27%27Design%2520sans%2520titre.mp4&response-expires=Sun%2C%2014%20Dec%202025%2002%3A42%3A00%20GMT" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             <img src="https://i.postimg.cc/L608gKyk/la-famille-wac.png" alt="VENT’ANNI Logo" class="ventanni-logo">
@@ -1996,6 +2099,7 @@
                 </div>
             </div>
         </section>
+
     </main>
 
     <footer>
@@ -2007,6 +2111,12 @@
         </div>
     </footer>
 
+    <section id="arabic-section" class="fade-in">
+        <div class="arabic-container">
+            <div class="arabic-text">
+                <span class="red">مروان</span> <span class="red">الودادي</span>
+            </div>
+        </div>
     <script>
         // Scroll to Section
         function scrollToSection(sectionId) {
@@ -2165,5 +2275,19 @@
                 element.style.boxShadow = '0 0 0 rgba(0, 0, 0, 0)';
             });
         });
+
+        // Arabic Section Reveal Animation
+        const arabicSection = document.getElementById('arabic-section');
+        const arabicText = document.querySelector('.arabic-text');
+
+        const arabicObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !arabicText.classList.contains('revealed')) {
+                    arabicText.classList.add('revealed');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        arabicObserver.observe(arabicSection);
     </script>
      
